@@ -22,7 +22,7 @@ namespace ApiTestProject_
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
