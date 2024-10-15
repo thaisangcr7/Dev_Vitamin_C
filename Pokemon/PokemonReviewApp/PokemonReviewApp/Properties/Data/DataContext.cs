@@ -21,6 +21,29 @@ namespace PokemonReviewApp.Properties.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PokemonCategory>()
+                .HasKey(pc => new { pc.PokemonId, pc.CategoryId });
+            modelBuilder.Entity<PokemonCategory>()
+                .HasOne(p => p.Pokemon)
+                .WithMany(pc => pc.PokemonCategories)
+                .HasForeignKey(c => c.PokemonId);
+            modelBuilder.Entity<PokemonCategory>()qqq
+                .HasOne(p => p.Category)
+                .WithMany(pc => pc.PokemonCategories)
+                .HasForeignKey(c => c.CategoryId);
+
+            modelBuilder.Entity<PokemonOwner>()
+                .HasKey(pc => new { pc.PokemonId, pc.CategoryId });
+            modelBuilder.Entity<PokemonCategory>()
+                .HasOne(p => p.Pokemon)
+                .WithMany(pc => pc.PokemonCategories)
+                .HasForeignKey(c => c.PokemonId);
+            modelBuilder.Entity<PokemonCategory>()qqq
+                .HasOne(p => p.Category)
+                .WithMany(pc => pc.PokemonCategories)
+                .HasForeignKey(c => c.CategoryId);
+
+
 
         }
     }
