@@ -6,7 +6,7 @@ namespace PokemonReviewApp.Properties.Models
     {
         public int ID { get; set; }
         public string Name {  get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
         

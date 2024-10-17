@@ -27,21 +27,21 @@ namespace PokemonReviewApp.Properties.Data
                 .HasOne(p => p.Pokemon)
                 .WithMany(pc => pc.PokemonCategories)
                 .HasForeignKey(c => c.PokemonId);
-            modelBuilder.Entity<PokemonCategory>()qqq
+            modelBuilder.Entity<PokemonCategory>()
                 .HasOne(p => p.Category)
                 .WithMany(pc => pc.PokemonCategories)
                 .HasForeignKey(c => c.CategoryId);
 
             modelBuilder.Entity<PokemonOwner>()
-                .HasKey(pc => new { pc.PokemonId, pc.CategoryId });
-            modelBuilder.Entity<PokemonCategory>()
+                .HasKey(po => new { po.PokemonId, po.OwnerId });
+            modelBuilder.Entity<PokemonOwner>()
                 .HasOne(p => p.Pokemon)
-                .WithMany(pc => pc.PokemonCategories)
+                .WithMany(pc => pc.PokemonOwners)
                 .HasForeignKey(c => c.PokemonId);
-            modelBuilder.Entity<PokemonCategory>()qqq
-                .HasOne(p => p.Category)
-                .WithMany(pc => pc.PokemonCategories)
-                .HasForeignKey(c => c.CategoryId);
+            modelBuilder.Entity<PokemonOwner>()
+                .HasOne(p => p.Owner)
+                .WithMany(pc => pc.PokemonOwners)
+                .HasForeignKey(c => c.OwnerId);
 
 
 
