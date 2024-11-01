@@ -20,8 +20,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+    // Adding the routing middleware to the request pipeline, 
+    app.UseRouting();
+
 app.UseAuthorization();
 
-app.MapControllers();
+// then we use endpoint. We configure these by calling into MapControllers which
+// adds endpoints for controller actions without specifying routes
+
+   app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+
+//app.MapControllers();
  
 app.Run();

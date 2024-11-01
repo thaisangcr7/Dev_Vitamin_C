@@ -3,9 +3,14 @@
 namespace CityInfo.API.Controllers
 {
     [ApiController]
+    [Route("api/cities")]
+
     public class CititesController : ControllerBase
     // Let have the CititesController class derives from the ControllerBase
     {
+        [HttpGet]
+
+
         // json result class: this result a jsonifies version of whatever we passed into the cosntuctor of jsonresult
         public JsonResult GetCities()
         {
