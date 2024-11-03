@@ -38,8 +38,6 @@ namespace CityInfo.API
 
              };
 
-
-
         }
 
     }
