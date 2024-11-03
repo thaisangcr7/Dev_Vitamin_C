@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CityInfo.API.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
 {
@@ -8,35 +10,57 @@ namespace CityInfo.API.Controllers
     public class CititesController : ControllerBase
     // Let have the CititesController class derives from the ControllerBase
     {
+        //[HttpGet]
+
+        //// json result class: this result a jsonifies version of whatever we passed into the cosntuctor of jsonresult
+        //public JsonResult GetCities()
+        //{
+        //    // because we dont have the model class yet,so we gona create objects
+        //    // id and a name
+
+        //    //return new JsonResult(
+
+        //    //    new List<object> 
+        //    //    {
+        //    //        new {id = 1, Name = "New York City" },
+        //    //        new {id = 2, Name = "Antwerp" }
+        //    //    }
+
+        //    //    );
+
+        //    // ** This action called all the Cities
+        //    return new JsonResult(CitiesDataStore.Current.Cities);
+        //}
+
+        ////** Another action to call single city - this time we want to accept the parameter
+        //[HttpGet("{id}")] // accept the id
+        //public JsonResult GetCity(int id)
+        //{
+        //    return new JsonResult(
+        //        CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id));
+        //}
+
+        //** we dont have to return the result in JSon format
         [HttpGet]
-
-
-        // json result class: this result a jsonifies version of whatever we passed into the cosntuctor of jsonresult
-        public JsonResult GetCities()
+        public ActionResult<IEnumerable<CityDto>> GetCities() // resturn a list of CityDto using Ienumberable
         {
-            // because we dont have the model class yet,so we gona create objects
-            // id and a name
-
-            //return new JsonResult(
-
-            //    new List<object> 
-            //    {
-            //        new {id = 1, Name = "New York City" },
-            //        new {id = 2, Name = "Antwerp" }
-            //    }
-
-            //    );
-
-            // ** This action called all the Cities
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            return Ok(CitiesDataStore.Current.Cities);
         }
 
-            //** Another action to call single city - this time we want to accept the parameter
-        [HttpGet("{id}")] // accept the id
-        public JsonResult GetCity(int id)
+        //** Return action result
+        [HttpGet("{id}")] 
+        public ActionResult<CityDto> GetCity(int id)
         {
-            return new JsonResult(
-                CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id));
+            //Find City
+            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+            
+
+            if (cityToReturn == null)
+            {
+                return NotFound(); // This will return a 404 if the city isn't found
+            }
+
+            return Ok(cityToReturn); // This will return a 200 with the city data
         }
 
     }
