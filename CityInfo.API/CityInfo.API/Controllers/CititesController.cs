@@ -42,7 +42,7 @@ namespace CityInfo.API.Controllers
 
         //** we dont have to return the result in JSon format
         [HttpGet]
-        public ActionResult<IEnumerable<CityDto>> GetCities() // resturn a list of CityDto using Ienumberable
+        public ActionResult<IEnumerable<CityDto>> GetCities()
         {
             return Ok(CitiesDataStore.Current.Cities);
         }
