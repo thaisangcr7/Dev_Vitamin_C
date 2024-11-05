@@ -7,8 +7,8 @@ namespace CityInfo.API.Controllers
     [ApiController]
     [Route("api/cities")]
 
-    public class CititesController : ControllerBase
-    // Let have the CititesController class derives from the ControllerBase
+    public class CitiesController : ControllerBase
+    // Let have the CitiesController class derives from the ControllerBase
     {
         //[HttpGet]
 
