@@ -7,7 +7,7 @@ using CityInfo.API.Models;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/cities/{cityId}/pointofinterest")]
+    [Route("api/cities/{cityId}/pointsofinterest")]
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
@@ -24,10 +24,10 @@ namespace CityInfo.API.Controllers
             return Ok(city.PointsOfInterest);
         }
 
-        //public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(
-        //    int cityId, int pointOfInterestId)
+
         [HttpGet("{pointOfInterestId}")]
         public ActionResult<PointOfInterestDto> GetPointOfInterest(int cityId, int pointOfInterestId)
+
 
         {
             var city = CitiesDataStore.Current.Cities
