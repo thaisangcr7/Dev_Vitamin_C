@@ -110,7 +110,6 @@ namespace CityInfo.API.Controllers
 
             return NoContent();
 
-      
             }
 
         [HttpPatch("{pointofinterestid}")]
@@ -119,17 +118,48 @@ namespace CityInfo.API.Controllers
             int cityId, int pointOfInterestId,
             JsonPatchDocument<PointOfInterestForUpdateDto> patchDocument)
         {
+            var city = CitiesDataStore.Current.Cities.
+            FirstOrDefault(c => c.Id == cityId);
+            if (city == null)
+            {
+                 return NotFound(); 
+            }
+
+            var pointOfInterestFromStore = city.PointsOfInterest.
+            FirstOrDefault(c => c.Id == pointOfInterestId); 
+            if (pointOfInterestFromStore == null)
+            {
+                return NotFound();
+            }
+
+            var pointOfInterestToPatch = 
+                new PointOfInterestForUpdateDto()
+                {
+                    Name = pointOfInterestFromStore.Name,
+                    Description = pointOfInterestFromStore.Description,
+
+                };
+            
+            patchDocument.ApplyTo(pointOfInterestToPatch, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!TryValidateModel(pointOfInterestToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            pointOfInterestFromStore.Name = pointOfInterestToPatch.Name;
+            pointOfInterestFromStore.Description = pointOfInterestToPatch.Description;
+
+            return NoContent();
+
 
         }
-            
-
-
-
         
-
-        
-           
- 
 
     }
 }
