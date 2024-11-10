@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using CityInfo.API.Models;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.JsonPatch;
 
 
 
@@ -108,8 +110,22 @@ namespace CityInfo.API.Controllers
 
             return NoContent();
 
+      
+            }
+
+        [HttpPatch("{pointofinterestid}")]
+
+        public ActionResult PartiallyUpdatePointOfInterest(
+            int cityId, int pointOfInterestId,
+            JsonPatchDocument<PointOfInterestForUpdateDto> patchDocument)
+        {
 
         }
+            
+
+
+
+        
 
         
            
