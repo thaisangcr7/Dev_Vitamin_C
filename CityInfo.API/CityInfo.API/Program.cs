@@ -15,6 +15,9 @@ builder.Services.AddControllers( options =>
     .AddNewtonsoftJson() 
     .AddXmlDataContractSerializerFormatters();
 
+// register problem details services
+builder.Services.AddProblemDetails();
+
 //// Adding Problem details - Manipulate the error response
 //builder.Services.AddProblemDetails(options =>
 //{
@@ -36,6 +39,14 @@ var app = builder.Build();
   
 
 // Configure the HTTP request pipeline.
+
+// exception handller middleware - only add when we are not in a development enviroment
+if(!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler();
+}
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
