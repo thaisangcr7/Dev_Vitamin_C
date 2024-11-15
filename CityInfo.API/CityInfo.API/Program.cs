@@ -1,4 +1,12 @@
 using Microsoft.AspNetCore.StaticFiles;
+using Serilog;
+
+//Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
