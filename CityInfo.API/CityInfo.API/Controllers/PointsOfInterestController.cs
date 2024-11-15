@@ -24,12 +24,12 @@ namespace CityInfo.API.Controllers
         // return a list of points of interest
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointOfInterest(int cityId)
-        {
+        {throw new Exception("Exception sample");
+                
 
             //Handling and logging exceptions 
             try
             {
-                throw new Exception("Exception sample");
                 var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
                 
                 if (city == null)
