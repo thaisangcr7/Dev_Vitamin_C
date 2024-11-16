@@ -4,6 +4,7 @@ using System.Collections;
 using CityInfo.API.Models;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.JsonPatch;
+using CityInfo.API.Services;
 
 
 
@@ -15,17 +16,20 @@ namespace CityInfo.API.Controllers
     {
         // Controller Injection _ Logger
         private readonly ILogger<PointsOfInterestController> _logger;
-        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+        private readonly LocalMailService _mailService;
+
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger,
+            LocalMailService mailService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            
+            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
 
         // return a list of points of interest
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointOfInterest(int cityId)
         {
-            throw new Exception("Exception sample");    
+            
             //Handling and logging exceptions 
             try
             {
@@ -207,6 +211,10 @@ namespace CityInfo.API.Controllers
             }
 
             city.PointsOfInterest.Remove(pointOfInterestFromStore);
+
+            _mailService.Send("Point of interest deleted.",
+                $"Point of interest {pointOfInterestFromStore.Name} with id {pointOfInterestFromStore.Id} was deleted.");
+
             return NoContent();
         }
 
