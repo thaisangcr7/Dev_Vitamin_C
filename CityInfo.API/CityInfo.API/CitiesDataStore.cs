@@ -8,7 +8,7 @@ namespace CityInfo.API
         public List<CityDto> Cities { get; set; }
 
         // Also a static property which will return the instance of the Current
-        public static CitiesDataStore Current { get; } = new CitiesDataStore(); // This allow us the to work on the same store as long as we dont restart the webserver 
+        // public static CitiesDataStore Current { get; } = new CitiesDataStore(); // This allow us the to work on the same store as long as we dont restart the webserver 
 
 
         public CitiesDataStore()

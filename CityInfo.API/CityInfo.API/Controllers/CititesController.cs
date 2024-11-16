@@ -10,6 +10,8 @@ namespace CityInfo.API.Controllers
     public class CitiesController : ControllerBase
     // Let have the CitiesController class derives from the ControllerBase
     {
+        private CitiesDataStore _citiesDataStore;
+
         //[HttpGet]
 
         //// json result class: this result a jsonifies version of whatever we passed into the cosntuctor of jsonresult
@@ -41,10 +43,15 @@ namespace CityInfo.API.Controllers
         //}
 
         //** we dont have to return the result in JSon format
+        public CitiesController(CitiesDataStore citiesDataStore)
+            {
+                _citiesDataStore = citiesDataStore;
+            }
+
         [HttpGet]
         public ActionResult<IEnumerable<CityDto>> GetCities()
         {
-            return Ok(CitiesDataStore.Current.Cities);
+            return Ok(_citiesDataStore.Cities);
         }
 
         //** Return action result
@@ -52,7 +59,7 @@ namespace CityInfo.API.Controllers
         public ActionResult<CityDto> GetCity(int id)
         {
             //Find City
-            var cityToReturn = CitiesDataStore.Current.Cities.
+            var cityToReturn = _citiesDataStore.Cities.
                 FirstOrDefault(c => c.Id == id);
             
 
