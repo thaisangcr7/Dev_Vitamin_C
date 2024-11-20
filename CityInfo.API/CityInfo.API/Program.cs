@@ -54,8 +54,9 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<CitiesDataStore>();
 
 // the application will use this context - register for dependency injection
-builder.Services.AddDbContext<CityinfoContext>(dbContextOptions
-    => dbContextOptions.UseSqlite("Data Source=CityInfo.db"));
+builder.Services.AddDbContext<CityinfoContext>(
+    dbContextOptions=> dbContextOptions.UseSqlite(
+        builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]));
 
 var app = builder.Build();
 
