@@ -6,12 +6,12 @@ namespace CityInfo.API.DbContexts
 {
 
     // make cityinfocontext derive from the Database context - bigger application often use mutiple contexts
-    public class CityinfoContext : DbContext
+    public class CityInfoContext : DbContext
     {
         public DbSet<City> cities { get; set; }
         public DbSet<PointOfInterest> PointOfInterest { get; set; }
 
-        public CityinfoContext(DbContextOptions<CityinfoContext> options)
+        public CityInfoContext(DbContextOptions<CityInfoContext> options)
             :base(options)
         {
            
