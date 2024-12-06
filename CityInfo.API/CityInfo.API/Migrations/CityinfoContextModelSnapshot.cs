@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CityInfo.API.Migrations
 {
-    [DbContext(typeof(CityinfoContext))]
+    [DbContext(typeof(CityInfoContext))]
     partial class CityinfoContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
