@@ -9,11 +9,11 @@ namespace CityInfo.API.Services
         Task<IEnumerable<City>> GetCitiesAsync(); // this is a Async method
         
         //a method to get 1 city
-        Task<City?> GetCityAsync(int cityId, bool includedPointsOfInterest); // can return null if the city isnt found
+        Task<City?> GetCityAsync(int cityId, bool includePointsOfInterest); // can return null if the city isnt found
 
+        Task<bool> CityExistsAsync(int cityId);
         // get a point of interest
-        Task<IEnumerable<PointOfInterest>> GetPointsOfInterestForCityAsync(int cityId, 
-            int pointOfInterestId);
+        Task<IEnumerable<PointOfInterest>> GetPointsOfInterestForCityAsync(int cityId);
 
         Task<PointOfInterest?> GetPointOfInterestForCityAsync(int cityId,
             int pointofInterestId);
