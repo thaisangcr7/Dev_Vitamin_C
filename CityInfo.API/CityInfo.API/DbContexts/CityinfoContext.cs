@@ -20,6 +20,12 @@ namespace CityInfo.API.DbContexts
         // Give access to model builder
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Explicitly map the City entity to the "cities" table
+            modelBuilder.Entity<City>().ToTable("cities");
+
+            // Explicitly map the PointOfInterest entity to the "PointOfInterest" table
+            modelBuilder.Entity<PointOfInterest>().ToTable("PointOfInterest");
+
             // Adding dummy data
             modelBuilder.Entity<City>()
                            .HasData(

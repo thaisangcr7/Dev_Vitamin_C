@@ -70,26 +70,25 @@ var app = builder.Build();
 if(!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler();
+    app.UseHsts();
 }
 
-
+// Enable Swagger for all environments
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// Middleware order
 app.UseHttpsRedirection();
-
-    // Adding the routing middleware to the request pipeline, 
-    app.UseRouting();
-
+app.UseRouting();
 app.UseAuthorization();
 
 // then we use endpoint. We configure these by calling into MapControllers which
 // adds endpoints for controller actions without specifying routes
 
-   app.UseEndpoints(endpoints =>
+app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
         });
