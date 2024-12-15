@@ -8,7 +8,7 @@ namespace CityInfo.API.Services
         //IEnumerable<City> GetCities(); //- this is a synchronous method
         Task<IEnumerable<City>> GetCitiesAsync(); // this is a Async method
 
-        Task<IEnumerable<City>> GetCitiesAsync(string? name, string? searchQuery);
+        Task<(IEnumerable<City>, PaginationMetadata)> GetCitiesAsync(string? name, string? searchQuery, int PageNumber, int pageSize);
         
         //a method to get 1 city
         Task<City?> GetCityAsync(int cityId, bool includePointsOfInterest); // can return null if the city isnt found
