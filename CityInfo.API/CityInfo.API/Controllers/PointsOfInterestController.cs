@@ -6,12 +6,14 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.JsonPatch;
 using CityInfo.API.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 
 
 namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointsofinterest")]
+    [Authorize]
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
