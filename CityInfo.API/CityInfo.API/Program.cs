@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 //Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -78,6 +80,18 @@ builder.Services.AddAuthentication("Bearer")
             };
         }
     );
+
+
+//Add An Authorization Policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeFromAntwerp", Policy =>
+    {
+        Policy.RequireAuthenticatedUser();
+        Policy.RequireClaim("city", "Antwerp");
+
+    });
+});
 
 var app = builder.Build();
 
