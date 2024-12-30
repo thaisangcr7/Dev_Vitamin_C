@@ -89,9 +89,9 @@ builder.Services.AddAuthorization(options =>
     {
         Policy.RequireAuthenticatedUser();
         Policy.RequireClaim("city", "Antwerp");
-
     });
 });
+
 
 var app = builder.Build();
 
