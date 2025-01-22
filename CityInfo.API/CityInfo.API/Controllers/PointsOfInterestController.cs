@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using CityInfo.API.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Asp.Versioning;
 
 
 
@@ -15,6 +16,7 @@ namespace CityInfo.API.Controllers
     [Route("api/cities/{cityId}/pointsofinterest")]
     //[Authorize(Policy = "MustBeFromAntwerp")]
     [ApiController]
+    [ApiVersion(2)]
     public class PointsOfInterestController : ControllerBase
     {
         // Controller Injection _ Logger
