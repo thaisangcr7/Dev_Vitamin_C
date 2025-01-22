@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Asp.Versioning;
 
 //Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -92,7 +93,12 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-
+builder.Services.AddApiVersioning(setupAction =>
+{
+    setupAction.ReportApiVersions = true;
+    setupAction.AssumeDefaultVersionWhenUnspecified = true;
+    setupAction.DefaultApiVersion = new ApiVersion(1, 0);
+}).AddMvc();
 var app = builder.Build();
 
   

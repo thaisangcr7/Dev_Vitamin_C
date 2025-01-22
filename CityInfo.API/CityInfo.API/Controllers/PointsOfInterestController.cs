@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointsofinterest")]
-    [Authorize(Policy = "MustBeFromAntwerp")]
+    //[Authorize(Policy = "MustBeFromAntwerp")]
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
@@ -62,7 +62,7 @@ namespace CityInfo.API.Controllers
             var pointsOfInterestForCity = await _cityInfoRepository
                 .GetPointsOfInterestForCityAsync(cityId);
             
-            return Ok(_mapper.Map<IEnumerable<PointOfInterestDto>>(pointsOfInterestForCity));
+            return Ok(_mapper.Map<IEnumerable<PointOfInterestDto>>  (pointsOfInterestForCity));
 
         }
          
