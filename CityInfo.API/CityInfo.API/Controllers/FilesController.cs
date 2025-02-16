@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/files")]
-    [Authorize]
+    [Route("api/v{version:apiVersion}/files")]
+
     [ApiController]
     public class FilesController : ControllerBase
     {
