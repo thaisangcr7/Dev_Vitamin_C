@@ -30,7 +30,7 @@ namespace CityInfo.API.Controllers
         public ActionResult GetFile(string fileId)
         {
             // Look up the actual file, depending on the fileId
-            var pathToFile = "2023. J.Resume Sang Thai.pdf";
+            var pathToFile = Path.Combine(Directory.GetCurrentDirectory(), "2023. J.Resume Sang Thai.pdf");
 
             // Check whether the file exists
             if (!System.IO.File.Exists(pathToFile))
