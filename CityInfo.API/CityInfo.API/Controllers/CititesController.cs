@@ -47,6 +47,13 @@ namespace CityInfo.API.Controllers
             
         }
 
+        /// <summary>
+        /// Get a City by id
+        /// </summary>
+        /// <param name="id"> The Id of the city to get</param>
+        /// <param name="includePointsOfInterest">Whether or not to include the points of interest</param>
+        /// <returns>A City with or without points of interest</returns>
+
         //** Return action result
         [HttpGet("{id}")] 
         public async Task<IActionResult> GetCity(
