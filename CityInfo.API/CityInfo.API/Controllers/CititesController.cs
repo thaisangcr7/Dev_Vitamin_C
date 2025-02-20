@@ -53,6 +53,7 @@ namespace CityInfo.API.Controllers
         /// <param name="id"> The Id of the city to get</param>
         /// <param name="includePointsOfInterest">Whether or not to include the points of interest</param>
         /// <returns>A City with or without points of interest</returns>
+        /// <response code="200">Returns the requested city</response>
 
         //** Return action result
         [HttpGet("{id}")]
