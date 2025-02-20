@@ -55,7 +55,10 @@ namespace CityInfo.API.Controllers
         /// <returns>A City with or without points of interest</returns>
 
         //** Return action result
-        [HttpGet("{id}")] 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCity(
             int id, bool includePointsOfInterest = false)
         {
