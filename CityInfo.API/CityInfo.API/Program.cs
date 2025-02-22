@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Asp.Versioning;
 using System.Reflection;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.OpenApi.Models;
 
 //Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -132,6 +133,30 @@ foreach (var description in
     var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
     setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
+    setupAction.AddSecurityDefinition("CityInfoAPIBearerAuth", new()
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        Description = "Input a valid token to access this API"
+    });
+
+
+    setupAction.AddSecurityRequirement(new()
+    {
+        {
+            new ()
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "CityInfoAPIBearerAuth" 
+                }
+            },
+            new List<string>()
+        }
+        
+    });
 }
     );
 
