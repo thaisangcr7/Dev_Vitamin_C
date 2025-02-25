@@ -1,0 +1,9 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+// set a schema with varibles. variable start with @
+
+@schema=https
+@hostname=localhost
+@post=7169
+
+
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
