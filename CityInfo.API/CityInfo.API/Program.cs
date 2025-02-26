@@ -11,6 +11,7 @@ using Asp.Versioning;
 using System.Reflection;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.HttpOverrides;
 
 //Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -160,6 +161,11 @@ foreach (var description in
 }
     );
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
 var app = builder.Build();
 
   
@@ -172,6 +178,8 @@ if(!app.Environment.IsDevelopment())
     app.UseExceptionHandler();
     app.UseHsts();
 }
+
+app.UseForwardedHeaders();
 
 // Enable Swagger for all environments
 if (app.Environment.IsDevelopment())
