@@ -3,7 +3,25 @@
 
 @schema=https
 @hostname=localhost
-@post=7169
+@port=7230
 
 
 GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+
+###
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+Accept:application/xml
+
+
+
+// Create new point of interest - Can test requests for all API endpoint from here
+###
+POST {{schema}}://{{hostname}}:{{port}}/api/v2/cities/1/pointsofinterest
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "A name for testing",
+  "description": "A description for testing"
+}
+

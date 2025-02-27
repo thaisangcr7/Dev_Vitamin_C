@@ -12,18 +12,30 @@ using System.Reflection;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.ApplicationInsights.Extensibility;
 
 //Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
-    .WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
+
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Logging.ClearProviders(); // builin logger
 //builder.Logging.AddConsole(); // builin logger
-builder.Host.UseSerilog();
+
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+builder.Host.UseSerilog(
+    (context, loggerConfiguration) => loggerConfiguration
+        .MinimumLevel.Debug()
+        .WriteTo.Console()
+        .WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day)
+        .WriteTo.ApplicationInsights(new TelemetryConfiguration
+        {
+            InstrumentationKey = builder.Configuration["ApplicationInsightsInstrumentationKey"]
+        }, TelemetryConverter.Traces));
 
 // Add services to the container.
 
@@ -163,7 +175,8 @@ foreach (var description in
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor 
+    | ForwardedHeaders.XForwardedProto;
 });
 
 var app = builder.Build();
@@ -175,6 +188,7 @@ var app = builder.Build();
 // exception handller middleware - only add when we are not in a development enviroment
 if(!app.Environment.IsDevelopment())
 {
+ 
     app.UseExceptionHandler();
     app.UseHsts();
 }
@@ -182,8 +196,8 @@ if(!app.Environment.IsDevelopment())
 app.UseForwardedHeaders();
 
 // Enable Swagger for all environments
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(setupAction =>
     {
@@ -197,7 +211,7 @@ if (app.Environment.IsDevelopment())
 
     }
     );
-}
+//}
 
 // Middleware order
 app.UseHttpsRedirection();
